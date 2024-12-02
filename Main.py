@@ -12,13 +12,11 @@ class MainGUI:
         window_height = 900
         self.master.geometry(f"{window_width}x{window_height}")
         
-        # Set the default light gray background color
-        bg_color = "SystemButtonFace"  # This is the default light gray
+        bg_color = "SystemButtonFace"
         self.master.configure(bg=bg_color)
         
-        # Create all widgets with the default light gray background
         self.welcome_label = tk.Label(self.master, 
-                                    text="Welcome to Image Processing Tool", 
+                                    text="Welcome to Image Processing Toolkit", 
                                     font=("Inter", 20, "bold"), 
                                     fg="#000080",
                                     bg=bg_color)
@@ -36,7 +34,6 @@ class MainGUI:
         self.button_frame = tk.Frame(self.master, bg=bg_color)
         self.button_frame.pack(fill="both", expand=True, padx=20, pady=10)
         
-        # Buttons without icons
         buttons = [
             ("Basic Operations", self.open_basic_gui),
             ("Simple Edge Detection", self.open_simple_edge_gui),
@@ -64,14 +61,14 @@ class MainGUI:
                           fg="white", 
                           relief="raised", 
                           bd=4,
-                          padx=10)  # Add horizontal padding
-        button.pack(pady=10, fill="x")  # Increased vertical padding between buttons
+                          padx=10)
+        button.pack(pady=10, fill="x")
 
     def on_frame_configure(self, event):
         """Update the scrollable region of the canvas whenever the frame is resized"""
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
-    # Open the GUI files
+    # GUI files
     def open_basic_gui(self):
         subprocess.Popen(["python", "BasicOperations/BasicGUI.py"])
 
