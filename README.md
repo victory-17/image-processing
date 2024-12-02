@@ -49,6 +49,10 @@ Welcome to the **Image Processing Toolkit**, a modular GUI-based application tha
     │   └── HalftoningGUI.py             # Halftoning techniques
     ├── Histogram/
     │   └── HistogramGUI.py              # Histogram equalization and analysis
+    ├── Img/                             # Sample images for testing the operations
+    │   ├── image1.jpg
+    │   ├── image2.png
+    │   └── ...                          # Add more test images as needed
     ├── ImageOperations/
     │   └── ImageOperationsGUI.py        # Image operations (addition, subtraction, inversion)
     ├── Segmentation/
