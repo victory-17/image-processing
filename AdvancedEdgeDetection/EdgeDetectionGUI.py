@@ -33,6 +33,9 @@ class EdgeDetectionGUI:
 
         self.threshold_btn = tk.Button(self.controls, text="Calculate Threshold", command=self.calculate_threshold, state=tk.DISABLED)
         self.threshold_btn.pack(pady=5)
+        
+        self.reset_btn = tk.Button(self.controls, text="Reset to Original", bg="#000080", fg="white", command=self.reset_to_original, state=tk.DISABLED)
+        self.reset_btn.pack(pady=5)
 
         self.threshold_label = tk.Label(self.controls, text="Threshold: N/A", font=("Arial", 12))
         self.threshold_label.pack(pady=5)
@@ -48,6 +51,7 @@ class EdgeDetectionGUI:
             self.image = img
             self.display_image(img)
             self.grayscale_btn.config(state=tk.NORMAL)
+            self.reset_btn.config(state=tk.NORMAL)
 
     def display_image(self, img):
         img_tk = ImageTk.PhotoImage(img)
@@ -85,6 +89,16 @@ class EdgeDetectionGUI:
             threshold = np.mean(np_image)
             optimal = "Optimal" if threshold > 127 else "Not Optimal"
             self.threshold_label.config(text=f"Threshold: {threshold:.2f} ({optimal})")
+
+    def reset_to_original(self):
+        if self.image:
+            self.display_image(self.image)
+            self.gray_image = None
+            self.contrast_btn.config(state=tk.DISABLED)
+            self.dog_7x7_btn.config(state=tk.DISABLED)
+            self.dog_9x9_btn.config(state=tk.DISABLED)
+            self.threshold_btn.config(state=tk.DISABLED)
+            self.threshold_label.config(text="Threshold: N/A")
 
 if __name__ == "__main__":
     root = tk.Tk()
