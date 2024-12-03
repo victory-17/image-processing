@@ -55,7 +55,7 @@ class EdgeDetectionGUI:
 
     def display_image(self, img):
         img_tk = ImageTk.PhotoImage(img)
-        self.canvas.image = img_tk  # Keep reference to avoid garbage collection
+        self.canvas.image = img_tk
         self.canvas.create_image(0, 0, anchor=tk.NW, image=img_tk)
 
     def convert_to_grayscale(self):
@@ -98,6 +98,3 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = EdgeDetectionGUI(root)
     root.mainloop()
-
-
-
