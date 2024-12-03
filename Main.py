@@ -52,16 +52,16 @@ class MainGUI:
     def create_button(self, text, command, color, row):
         """Create a button with specified background color and increased spacing"""
         button = tk.Button(self.button_frame, 
-                          text=text, 
-                          width=30, 
-                          height=2, 
-                          command=command, 
-                          font=("Helvetica", 12, "bold"), 
-                          bg=color, 
-                          fg="white", 
-                          relief="raised", 
-                          bd=4,
-                          padx=10)
+                           text=text, 
+                           width=30, 
+                           height=2, 
+                           command=command, 
+                           font=("Helvetica", 12, "bold"), 
+                           bg=color, 
+                           fg="white", 
+                           relief="raised", 
+                           bd=4,
+                           padx=10)
         button.pack(pady=10, fill="x")
 
     def on_frame_configure(self, event):
