@@ -51,14 +51,56 @@ class BasicGUI:
 
     def convert_to_grayscale(self):
         if self.image:
-            gray = ImageOps.grayscale(self.image)
+            # Convert image to numpy array
+            img_array = np.array(self.image)
+            
+            # Calculate grayscale using weighted sum of RGB channels
+            # Using standard weights: R=0.299, G=0.587, B=0.114
+            if len(img_array.shape) == 3:  # Check if image is RGB
+                gray_array = (0.299 * img_array[:,:,0] + 
+                            0.587 * img_array[:,:,1] + 
+                            0.114 * img_array[:,:,2]).astype(np.uint8)
+                gray = Image.fromarray(gray_array)
+            else:  # Image is already grayscale
+                gray = self.image
+                
             self.gray_image = gray
             self.display_image(gray)
 
     def calculate_threshold(self):
         if self.gray_image:
             np_image = np.array(self.gray_image)
-            threshold = np.mean(np_image)
+            
+            # Calculate threshold using iterative method (Basic Otsu's method)
+            hist = np.histogram(np_image, bins=256, range=(0,256))[0]
+            total = np_image.size
+            current_max = -float('inf')
+            threshold = 0
+            
+            sum_all = sum(i * h for i, h in enumerate(hist))
+            w_b = 0
+            sum_b = 0
+            
+            for i in range(256):
+                w_b += hist[i]
+                if w_b == 0:
+                    continue
+                    
+                w_f = total - w_b
+                if w_f == 0:
+                    break
+                
+                sum_b += i * hist[i]
+                mean_b = sum_b / w_b
+                mean_f = (sum_all - sum_b) / w_f
+                
+                # Calculate between class variance
+                variance = w_b * w_f * (mean_b - mean_f) ** 2
+                
+                if variance > current_max:
+                    current_max = variance
+                    threshold = i
+            
             optimal = "Optimal" if threshold > 127 else "Not Optimal"
             self.threshold_label.config(text=f"Threshold: {threshold:.2f} ({optimal})")
 

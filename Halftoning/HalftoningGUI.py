@@ -9,11 +9,9 @@ class HalftoningGUI:
         self.master = master
         self.master.title("Halftoning Operations")
         
-        # Canvas for displaying the image
         self.canvas = tk.Canvas(master, width=400, height=400, bg='gray')
         self.canvas.pack(side=tk.LEFT, padx=10, pady=10)
         
-        # Controls frame
         self.controls = tk.Frame(master)
         self.controls.pack(side=tk.RIGHT, padx=10, pady=10)
         

@@ -50,9 +50,18 @@ def low_pass_filter(image, mask_type=1):
 
 
 def median_filter_function(image):
-    """
-    Apply median filter to the image to reduce noise.
-    """
+
     np_image = np.array(image)
-    filtered_image = median_filter(np_image, size=3)  # 3x3 median filter
-    return Image.fromarray(filtered_image.astype(np.uint8))
+    height, width = np_image.shape
+    result = np.zeros_like(np_image)
+    
+    # Apply 3x3 median filter
+    for i in range(1, height - 1):
+        for j in range(1, width - 1):
+            # Get 3x3 neighborhood
+            neighborhood = np_image[i-1:i+2, j-1:j+2]
+            # Calculate median value
+            median_value = np.median(neighborhood)
+            result[i, j] = median_value
+            
+    return Image.fromarray(result.astype(np.uint8))
