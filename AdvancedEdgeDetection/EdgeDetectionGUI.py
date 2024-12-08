@@ -31,6 +31,9 @@ class EdgeDetectionGUI:
         self.dog_9x9_btn = tk.Button(self.controls, text="Difference of Gaussians (9x9)", command=self.apply_dog_9x9, state=tk.DISABLED)
         self.dog_9x9_btn.pack(pady=5)
 
+        self.dog_btn = tk.Button(self.controls, text="Difference of Gaussians", command=self.apply_dog)
+        self.dog_btn.pack(pady=5)
+
         self.threshold_btn = tk.Button(self.controls, text="Calculate Threshold", command=self.calculate_threshold, state=tk.DISABLED)
         self.threshold_btn.pack(pady=5)
         
@@ -75,13 +78,18 @@ class EdgeDetectionGUI:
 
     def apply_dog_7x7(self):
         if self.gray_image:
-            dog_7x7 = difference_of_gaussians(self.gray_image, kernel_size_1=7, kernel_size_2=9)
+            dog_7x7, dog_9x9, dog = difference_of_gaussians(self.gray_image)
             self.display_image(dog_7x7)
 
     def apply_dog_9x9(self):
         if self.gray_image:
-            dog_9x9 = difference_of_gaussians(self.gray_image, kernel_size_1=9, kernel_size_2=7)
+            dog_7x7, dog_9x9, dog = difference_of_gaussians(self.gray_image)
             self.display_image(dog_9x9)
+
+    def apply_dog(self):
+        if self.gray_image:
+            dog_7x7, dog_9x9, dog = difference_of_gaussians(self.gray_image)
+            self.display_image(dog)
 
     def calculate_threshold(self):
         if self.gray_image:

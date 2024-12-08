@@ -42,8 +42,8 @@ class MainGUI:
             ("Histogram", self.open_histogram_gui),
             ("Halftoning", self.open_halftoning_gui),
             ("Filtering", self.open_filtering_gui),
-            ("Advanced Edge Detection 1", self.open_advanced_edge_gui),
-            ("Advanced Edge Detection 2", self.open_advanced_edge2_gui)
+            ("Advanced Edge Detection 1\n(Contrast-based edge detection, DoG 7*7 & 9*9)", self.open_advanced_edge_gui),
+            ("Advanced Edge Detection 2\n(Homogeneity operator, Difference operator, Variance, Range)", self.open_advanced_edge2_gui)
         ]
         
         for idx, (text, command) in enumerate(buttons):

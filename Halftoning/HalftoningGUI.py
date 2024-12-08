@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk, ImageOps
-from Halftoning import simple_halftone, error_diffusion_halftone
+from Halftoning import apply_simple_halftone, apply_advanced_halftone
 import numpy as np
 
 class HalftoningGUI:
@@ -73,12 +73,12 @@ class HalftoningGUI:
 
     def apply_simple_halftone(self):
         if self.gray_image:
-            halftoned = simple_halftone(self.gray_image)
+            halftoned = apply_simple_halftone(self.gray_image)
             self.display_image(halftoned)
 
     def apply_advanced_halftone(self):
         if self.gray_image:
-            halftoned = error_diffusion_halftone(self.gray_image)
+            halftoned = apply_advanced_halftone(self.gray_image)
             self.display_image(halftoned)
 
     def reset_to_original(self):

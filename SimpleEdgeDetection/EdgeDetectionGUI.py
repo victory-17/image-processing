@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk, ImageOps
-from EdgeDetection import sobel_operator, prewitt_operator, kirsch_operator
+from EdgeDetection import sobel_operator, prewitt_operator, kirsch_compass_masks
 import numpy as np
 
 class EdgeDetectionGUI:
@@ -80,7 +80,7 @@ class EdgeDetectionGUI:
 
     def apply_kirsch(self):
         if self.gray_image:
-            kirsch = kirsch_operator(self.gray_image)
+            kirsch = kirsch_compass_masks(self.gray_image)
             self.display_image(kirsch)
 
     def calculate_threshold(self):

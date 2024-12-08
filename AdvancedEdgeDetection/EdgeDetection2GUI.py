@@ -54,7 +54,7 @@ class EdgeDetectionGUI:
             self.image = img
             self.display_image(img)
             self.grayscale_btn.config(state=tk.NORMAL)
-            self.reset_btn.config(state=tk.NORMAL)  # Enable reset button after upload
+            self.reset_btn.config(state=tk.NORMAL)
 
     def display_image(self, img):
         img_tk = ImageTk.PhotoImage(img)
@@ -103,7 +103,6 @@ class EdgeDetectionGUI:
         if self.image:
             self.display_image(self.image)
             self.gray_image = None
-            # Disable operator buttons when resetting
             self.homogeneity_btn.config(state=tk.DISABLED)
             self.difference_btn.config(state=tk.DISABLED)
             self.variance_btn.config(state=tk.DISABLED)
