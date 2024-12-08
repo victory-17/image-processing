@@ -19,8 +19,13 @@ def apply_filter(image, kernel):
 
 def sobel_operator(image):
 
-    sobel_x = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
-    sobel_y = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
+    sobel_x = np.array([[-1, 0, 1],
+                        [-2, 0, 2],
+                        [-1, 0, 1]])
+
+    sobel_y = np.array([[-1, -2, -1],
+                        [ 0,  0,  0],
+                        [ 1,  2,  1]])
     
     gx = np.array(apply_filter(image, sobel_x), dtype=np.float32)
     gy = np.array(apply_filter(image, sobel_y), dtype=np.float32)

@@ -1,7 +1,5 @@
 import numpy as np
 from PIL import Image
-from skimage import filters  # for adaptive thresholding
-from scipy.signal import find_peaks
 
 def manual_threshold(image, threshold=128):
     """
@@ -106,9 +104,6 @@ def adaptive_histogram_threshold(image):
     return Image.fromarray(segmented_image.astype(np.uint8))
 
 def calculate_threshold(image):
-    """
-    Calculate the threshold using the average pixel intensity.
-    """
     np_image = np.array(image)
     threshold = np.mean(np_image)  # Mean intensity as threshold
     return threshold

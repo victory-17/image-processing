@@ -1,11 +1,10 @@
 import numpy as np
-from PIL import Image, ImageOps
-from scipy.ndimage import gaussian_filter
+from PIL import Image
+import math
 
 def apply_filter(image, kernel):
     """
     Applies a convolution filter to the image using the given kernel.
-    This function now handles kernels of any size, e.g., 7x7 or 9x9.
     """
     np_image = np.array(image, dtype=np.float32)
     kernel_size = kernel.shape[0]
@@ -45,14 +44,86 @@ def contrast_based_edge(image):
     return Image.fromarray(contrast_edge.astype(np.uint8))
 
 
+
+def create_gaussian_kernel(size, sigma):
+    """
+    Create a 2D Gaussian kernel
+    """
+    kernel = np.zeros((size, size))
+    center = size // 2
+    
+    sum_val = 0
+    for x in range(size):
+        for y in range(size):
+            x_dist = x - center
+            y_dist = y - center
+            # Gaussian function
+            kernel[x, y] = math.exp(-(x_dist**2 + y_dist**2)/(2*sigma**2))
+            sum_val += kernel[x, y]
+    
+    return kernel / sum_val
+
+def apply_gaussian_filter(image_array, kernel):
+    """
+    Apply Gaussian filter using convolution
+    """
+    if len(image_array.shape) == 3:
+        height, width, channels = image_array.shape
+    else:
+        height, width = image_array.shape
+        channels = 1
+        image_array = image_array.reshape(height, width, 1)
+    
+    kernel_size = kernel.shape[0]
+    padding = kernel_size // 2
+    
+    # Create padded image
+    padded_image = np.pad(image_array, ((padding, padding), (padding, padding), (0, 0)), mode='reflect')
+    result = np.zeros_like(image_array)
+    
+    # Apply convolution
+    for i in range(height):
+        for j in range(width):
+            for c in range(channels):
+                window = padded_image[i:i+kernel_size, j:j+kernel_size, c]
+                result[i, j, c] = np.sum(window * kernel)
+    
+    if channels == 1:
+        result = result.reshape(height, width)
+    
+    return result
+
+def gaussian_filter(image, sigma):
+    """
+    Main Gaussian filter function
+    """
+    # Convert PIL Image to numpy array if necessary
+    if isinstance(image, Image.Image):
+        image_array = np.array(image)
+    else:
+        image_array = image
+    
+    # Create kernel size based on sigma
+    kernel_size = int(6 * sigma)
+    if kernel_size % 2 == 0:
+        kernel_size += 1
+    
+    kernel = create_gaussian_kernel(kernel_size, sigma)
+    filtered_image = apply_gaussian_filter(image_array, kernel)
+    
+    return filtered_image
+
+
 def difference_of_gaussians(image, kernel_size_1=7, kernel_size_2=9):
     """
-    Apply Difference of Gaussians using Gaussian filters with two different kernel sizes
-    => blurring with two different kernel sizes and subtracting the results
+    Apply Difference of Gaussians using custom Gaussian filters
     """
-    blurred_1 = gaussian_filter(image, sigma=kernel_size_1 / 6.0)
-    blurred_2 = gaussian_filter(image, sigma=kernel_size_2 / 6.0) 
+    image_array = np.array(image)
+    
+    blurred_1 = gaussian_filter(image_array, sigma=kernel_size_1 / 6.0)
+    blurred_2 = gaussian_filter(image_array, sigma=kernel_size_2 / 6.0)
 
     dog_result = blurred_1 - blurred_2
     dog_result = np.clip(dog_result, 0, 255)
+    
     return Image.fromarray(dog_result.astype(np.uint8))

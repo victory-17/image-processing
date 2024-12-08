@@ -7,7 +7,7 @@ class MainGUI:
         self.master = master
         self.master.title("Main Menu")
         
-        # Set window size
+        # window size
         window_width = 600
         window_height = 900
         self.master.geometry(f"{window_width}x{window_height}")
@@ -50,7 +50,6 @@ class MainGUI:
             self.create_button(text, command, "#000080", idx)
 
     def create_button(self, text, command, color, row):
-        """Create a button with specified background color and increased spacing"""
         button = tk.Button(self.button_frame, 
                            text=text, 
                            width=30, 
@@ -65,7 +64,6 @@ class MainGUI:
         button.pack(pady=10, fill="x")
 
     def on_frame_configure(self, event):
-        """Update the scrollable region of the canvas whenever the frame is resized"""
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
     # GUI files

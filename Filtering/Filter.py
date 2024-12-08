@@ -1,6 +1,5 @@
 import numpy as np
 from PIL import Image
-from scipy.ndimage import median_filter
 
 def apply_filter(image, kernel):
     np_image = np.array(image, dtype=np.float32)

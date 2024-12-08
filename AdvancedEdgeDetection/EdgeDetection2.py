@@ -1,6 +1,5 @@
 import numpy as np
 from PIL import Image, ImageOps
-from scipy.ndimage import gaussian_filter
 
 def apply_filter(image, kernel):
     np_image = np.array(image, dtype=np.float32)
