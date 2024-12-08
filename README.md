@@ -41,7 +41,7 @@ Welcome to the **Image Processing Toolkit**, a modular GUI-based application tha
     Image-Processing-Toolkit/
     ├── AdvancedEdgeDetection/
     │   ├── EdgeDetectionGUI.py          # Advanced edge detection (DoG, contrast-based)
-    │   ├── EdgeDetection2GUI.py         # Additional edge detection methods (homogeneity, variance, etc.)
+    │   ├── EdgeDetection2GUI.py         # Additional edge detection methods (homogeneity operator, difference operator, variance, range)
     ├── BasicGUI.py                      # Basic operations (grayscale, thresholding)
     ├── Filtering/
     │   └── FilterGUI.py                 # Filtering operations (low-pass, high-pass, median filters)
