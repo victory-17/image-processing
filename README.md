@@ -77,7 +77,7 @@ Make sure you have the following installed on your system:
 - Pillow (`pip install pillow`)
 - NumPy (`pip install numpy`)
 - Matplotlib (`pip install matplotlib`)
-- cv2 (`pip install cv2`)
+- OpenCV (`pip install opencv-python`)
 
 ### Installation
 
